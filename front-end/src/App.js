@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { BrowserRouter as Router,  Route, Routes } from "react-router-dom";
+import NavBar from './components/NavBar'
+import RealEstate from './components/pages/RealEstate'
+import Cars from './components/pages/Cars'
+import Electronics from './components/pages/Electronics'
+import Hobbies from './components/pages/Hobbies'
+import SignIn from './components/pages/SignIn'
+import SignUp from './components/pages/SignUp'
+import AddAnnoucement from './components/pages/AddAnnoucement';
+import Home from './components/pages/Home'  
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <NavBar/>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/add-announcement" element={<AddAnnoucement/>} />
+          <Route path="/sign-in" element={<SignIn/>}/>
+          <Route path='/sign-up' element={<SignUp/>}/>
+          <Route path='/category/real-estate' element={<RealEstate/>}/>
+          <Route path='/category/cars' element={<Cars/>}/>
+          <Route path='/category/electronics' element={<Electronics/>}/>
+          <Route path='/category/hobbies' element={<Hobbies/>}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
