@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const SignIn = () => {
 const [email, setEmail]=useState("")
@@ -39,7 +40,7 @@ e.preventDefault();
           </button>
         </form>
         <p className="mt-4 text-center">
-          Don't have an account? <a href="/sign-up" className="text-[#ff385c]">Sign Up</a>
+          Don't have an account? <NavLink to='/user/auth/sign-up' className='text-[#ff385c]'>Sign Up</NavLink>
         </p>
       </div>
     </div>
