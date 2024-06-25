@@ -2,7 +2,7 @@ import React from 'react'
 import Slides from '../home-compon/Slides'
 import HomeCategories from '../home-compon/HomeCategories';
 import CurrentAnnouc from '../home-compon/CurrentAnnouc';
-import Footer from '../home-compon/Footer'
+import Footer from '../Footer'
 const Home = () => {
   return (
     <>
@@ -21,9 +21,6 @@ const Home = () => {
         <HomeCategories/>
        </div>
     </div>
-     <div className="footer bg-slate-100 mt-12  ">
-      <Footer/>
-     </div>
     </>
   )
 }

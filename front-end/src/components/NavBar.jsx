@@ -55,7 +55,7 @@ const NavBar = () => {
                 </div> }
                 
                 <div className="flex items-center ml-28">
-                    <NavLink to="/user/auth" className="">
+                    <NavLink to="/user/auth/sign-in" className="">
                     <span className='bg-[#ff385c] p-2.5 rounded-xl cursor-pointer text-[#fff] hover:bg-[#fe4869]"'>Sign In/Sign Up</span>
                     </NavLink>
                 </div>
