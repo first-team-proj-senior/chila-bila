@@ -18,8 +18,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/add-annoucement" element={<AddAnnoucement/>} />
-          <Route path="/user/auth/sign-in" element={<SignIn/>}/>
-          <Route path='/user/auth/sign-up' element={<SignUp/>}/>
+          <Route path="/sign-in" element={<SignIn/>}/>
+          <Route path="/sign-up" element={<SignUp/>}/>
           <Route path='/category/real-estate' element={<RealEstate/>}/>
           <Route path='/category/cars' element={<Cars/>}/>
           <Route path='/category/electronics' element={<Electronics/>}/>
