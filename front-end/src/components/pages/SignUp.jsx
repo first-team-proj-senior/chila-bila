@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 const SignUp = () => {
-  return (
-    <div>SignUp</div>
-  )
-}
 
-export default SignUp
+  return (
+   <div>
+    
+   </div>
+  );
+};
+
+export default SignUp;
