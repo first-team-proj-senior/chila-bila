@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../image/logo.png'
+import Logo from "../image/logo.png"
 import { CiLocationOn } from "react-icons/ci";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { MdOutlineMail } from "react-icons/md";

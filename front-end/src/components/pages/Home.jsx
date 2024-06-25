@@ -5,6 +5,9 @@ import { IoHome } from "react-icons/io5";
 import { TbCarSuv } from "react-icons/tb";
 import { CiMobile2 } from "react-icons/ci";
 import { FaRegGrinHearts } from "react-icons/fa";
+import HomeCategories from '../home-compon/HomeCategories';
+import CurrentAnnouc from '../home-compon/CurrentAnnouc';
+import Footer from '../Footer'
 const Home = () => {
   return (
     <div className='p-4'>
