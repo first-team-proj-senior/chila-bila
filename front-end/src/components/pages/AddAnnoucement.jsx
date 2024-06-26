@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 const AddAnnouncement = () => {
@@ -77,6 +78,7 @@ const AddAnnouncement = () => {
           <button type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
             Submit
           </button>
+
         </form>
       </div>
     </div>
