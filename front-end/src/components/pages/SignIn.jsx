@@ -26,10 +26,9 @@ const SignIn = () => {
             <label htmlFor="email" className="block text-gray-700">Email:</label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded mt-1"
+              className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
               placeholder="Enter your email"
             />
           </div>
@@ -37,10 +36,9 @@ const SignIn = () => {
             <label htmlFor="password" className="block text-gray-700">Password:</label>
             <input
               type="password"
-              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded mt-1"
+              className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
               placeholder="Enter your password"
             />
           </div>

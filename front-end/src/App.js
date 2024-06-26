@@ -7,7 +7,7 @@ import Electronics from './components/pages/Electronics'
 import Hobbies from './components/pages/Hobbies'
 import SignIn from './components/pages/SignIn'
 import SignUp from './components/pages/SignUp'
-import AddAnnoucement from './components/pages/AddAnnoucement.jsx';
+import AddAnnouncement from './components/pages/AddAnnoucement.jsx';
 import Home from './components/pages/Home' 
 import Footer from './components/Footer.jsx' 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <NavBar/>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/add-annoucement" element={<AddAnnoucement/>} />
+          <Route path="/add-announcement" element={<AddAnnouncement />} />
           <Route path="/sign-in" element={<SignIn/>}/>
           <Route path="/sign-up" element={<SignUp/>}/>
           <Route path='/category/real-estate' element={<RealEstate/>}/>
