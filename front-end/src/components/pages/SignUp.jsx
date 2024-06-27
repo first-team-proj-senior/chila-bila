@@ -77,7 +77,6 @@ const SignUp = () => {
         </form>
       </div>
     </div>
-
   );
 };
 
