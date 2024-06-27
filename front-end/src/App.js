@@ -7,7 +7,7 @@ import Electronics from './components/pages/Electronics'
 import Hobbies from './components/pages/Hobbies'
 import SignIn from './components/pages/SignIn'
 import SignUp from './components/pages/SignUp'
-import AddAnnouncement from './components/pages/AddAnnoucement.jsx';
+import AddAnnouncement from './components/pages/AddAnnoucement.jsx'
 import Home from './components/pages/Home' 
 import Footer from './components/Footer.jsx' 
 function App() {

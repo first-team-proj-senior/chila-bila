@@ -7,6 +7,9 @@ const SignUpPop = (props) => {
   return (
     <div className="pop-up-container rounded-xl flex items-center justify-center ">
 
+    <div className="pop-up-container">
+
+
     <div className='flex flex-col items-center justify-center bg-neutral-700 w-96 h-64 p-2 rounded-lg' >
         
         <div className="pop-container flex items-center justify-center p-6 gap-2">
