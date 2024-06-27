@@ -21,19 +21,19 @@ connection.connect().then(() => {
   }
 
   const saveAnnounceinDB = (announce)=>{
-    const sql = "INSERT INTO `comments` SET ?";
+    const sql = "INSERT INTO `announces` SET ?";
     return connection.query(sql,announce)
 
   }
 
   const removeAnnounc = (id)=>{
- const sql = "DELET FROM announces WHERE id=?"
+ const sql = "DELETE FROM announces WHERE id=?"
  return connection.query(sql,id)
   }
 
   const updateAnnounce = (announce,id)=>{
- const sql = " UPDATE house SET ? WHERE id=?"
- return connection.query(announce,id)
+ const sql = " UPDATE announces SET ? WHERE id=?"
+ return connection.query(sql,[announce,id])
   }
 
   module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce }
