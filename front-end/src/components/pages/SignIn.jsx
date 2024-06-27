@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-=======
 
 
 const SignIn = () => {
@@ -17,6 +16,7 @@ const SignIn = () => {
     setError('');
   };
 
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
@@ -27,10 +27,9 @@ const SignIn = () => {
             <label htmlFor="email" className="block text-gray-700">Email:</label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded mt-1"
+              className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
               placeholder="Enter your email"
             />
           </div>
@@ -38,10 +37,9 @@ const SignIn = () => {
             <label htmlFor="password" className="block text-gray-700">Password:</label>
             <input
               type="password"
-              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded mt-1"
+              className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
               placeholder="Enter your password"
             />
           </div>
@@ -50,8 +48,7 @@ const SignIn = () => {
           </button>
         </form>
         <p className="mt-4 text-center">
-
-          Don't have an account? <Link to="/sign-up" className="text-[#ff385c]">Sign Up</Link>
+          Don't have an account? <Link to="/user/auth/sign-up" className="text-[#ff385c]">Sign Up</Link>
 
         </p>
       </div>
