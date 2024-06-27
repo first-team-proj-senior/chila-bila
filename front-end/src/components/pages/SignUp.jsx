@@ -12,7 +12,6 @@ const SignUp = () => {
     if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all fields');
       return;
-      console.log("gfh,gvhbn")
     }
     if (password !== confirmPassword) {
       setError('Passwords do not match');
