@@ -48,7 +48,7 @@ const SignIn = () => {
           </button>
         </form>
         <p className="mt-4 text-center">
-          Don't have an account? <Link to="/sign-up" className="text-[#ff385c]">Sign Up</Link>
+          Don't have an account? <Link to="/user/auth/sign-up" className="text-[#ff385c]">Sign Up</Link>
         </p>
       </div>
     </div>
