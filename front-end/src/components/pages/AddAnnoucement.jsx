@@ -5,6 +5,7 @@ const AddAnnouncement = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const [location,setLocation]=useState("")
   const [image, setImage] = useState(null);
   const [price, setPrice] = useState(''); 
   const [error, setError] = useState('');
@@ -63,6 +64,39 @@ const AddAnnouncement = () => {
             </select>
           </div>
           <div className="mb-4">
+            <label htmlFor="location" className="block text-gray-700">Location:</label>
+            <select
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
+            >
+              <option value="">Select Location</option>
+              <option value="Tunis">Tunis</option>
+              <option value="Sfax">Sfax</option>
+              <option value="Sousse">Sousse</option>
+              <option value="Kairouane">kairouane</option>
+              <option value="Gabes">Gabes</option>
+              <option value="Bizert">Bizert</option>
+              <option value="Ariana">Ariana</option>
+              <option value="Beja">Beja</option>
+              <option value="Monastir">Monastir</option>
+              <option value="Tataouine">Tataouine</option>
+              <option value="Hammamet">Hammamet</option>
+              <option value="Elkef">ElKef</option>
+              <option value="Ben Arous">Ben Arous</option>
+              <option value="Kasserine">Kasserine</option>
+              <option value="Gafsa">Gafsa</option>
+              <option value="Mahdia">Mahdia</option>
+              <option value="Mannouba">Mannouba</option>
+              <option value="Mednine">Mednine</option>
+              <option value="Nabel">Nabel</option>
+              <option value="Selyena">Selyena</option>
+              <option value="Tozer">Tozer</option>
+              <option value="Zaghouane">Zaghouan</option>
+              <option value="Sidi Bouzid">Sidi Bouzid</option>
+            </select>
+          </div>
+          <div className="mb-4">
             <label htmlFor="price" className="block text-gray-700">Price:</label>
             <input
               type="number"
@@ -76,7 +110,6 @@ const AddAnnouncement = () => {
             <label htmlFor="image" className="block text-gray-700">Image:</label>
             <input
               type="file"
-              onChange={""}
               className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
             />
           </div>
