@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import PopUp from '../PopUps/SignUpPop.jsx'
 const AddAnnouncement = () => {
@@ -92,6 +91,7 @@ const AddAnnouncement = () => {
     </div>
   );
 };
+
 
 export default AddAnnouncement;
 

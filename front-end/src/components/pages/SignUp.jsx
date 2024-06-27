@@ -7,6 +7,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !email || !password || !confirmPassword) {
