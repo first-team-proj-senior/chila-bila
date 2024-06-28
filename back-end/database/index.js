@@ -24,6 +24,13 @@ connection.connect()
     const sql = `select * from user`
     return connection.query(sql)
   }
+
+  const getOneUser = (username) => {
+    const sql = `SELECT * FROM user WHERE username = ? `;
+    return connection.query(sql, [username]);
+  };
+  
+
   const saveAnnounceinDB = (announce)=>{
     const sql = "INSERT INTO `announces` SET ?";
     return connection.query(sql,announce)
@@ -43,6 +50,5 @@ connection.connect()
  const sql = " UPDATE announces SET ? WHERE id=?"
  return connection.query(sql,[announce,id])
   }
+  module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce , addUser , getAllusers , getOneUser}
 
-
-  module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce , addUser , getAllusers}
