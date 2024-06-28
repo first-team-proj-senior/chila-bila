@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import PopUp from '../PopUps/SignUpPop.jsx'
-const AddAnnouncement = () => {
+const AddAnnouncement = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -11,8 +11,6 @@ const AddAnnouncement = () => {
   const [error, setError] = useState('');
   const [allowed, setAllowed] = useState(false);
   const [phoneNumber,setPhoneNumber]=useState("")
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !description || !category || !price) { 
@@ -25,7 +23,7 @@ const AddAnnouncement = () => {
   return (
   
     <div className="flex justify-center items-center bg-gray-100 p-6" >
-    {!allowed && <PopUp allowed={setAllowed}/> }  
+    {allowed && <PopUp allowed={setAllowed}/> }  
       <div className="bg-white p-8 rounded-lg shadow-lg w-96 ">
         <div className="container p-4">
         <h2 className="text-2xl font-bold mb-6 text-center">Add Announcement</h2>
@@ -111,6 +109,8 @@ const AddAnnouncement = () => {
             <label htmlFor="image" className="block text-gray-700">Image:</label>
             <input
               type="file"
+
+              onChange={(e)=>setImage(e.target.files[0])}
               className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
             />
           </div>
@@ -124,10 +124,23 @@ const AddAnnouncement = () => {
               placeholder="Enter your Phone Number"
             />
           </div>
+          <span  type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
+
+          <div className="mb-4">
+            <label htmlFor="Phone Number" className="block text-gray-700">Phone Number:</label>
+            <input
+              type="text"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
+              placeholder="Enter your Phone Number"
+            />
+          </div>
           
           <button type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
+
             Submit
-          </button>
+          </span>
 
         </form>
       </div>
