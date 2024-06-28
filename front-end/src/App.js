@@ -10,6 +10,7 @@ import SignUp from './components/pages/SignUp'
 import AddAnnouncement from './components/pages/AddAnnoucement.jsx';
 import Home from './components/pages/Home' 
 import Footer from './components/Footer.jsx' 
+import DetailAnnoucement from './components/pages/detailAnnoucement.jsx';
 function App() {
   return (
     <div className="App">
@@ -24,6 +25,8 @@ function App() {
           <Route path='/category/cars' element={<Cars/>}/>
           <Route path='/category/electronics' element={<Electronics/>}/>
           <Route path='/category/hobbies' element={<Hobbies/>}/>
+          <Route path='/annoucement/detail' element={<DetailAnnoucement/>}/>
+          
         </Routes>
        <Footer/> 
       </Router>
