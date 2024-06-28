@@ -44,4 +44,5 @@ connection.connect()
  return connection.query(sql,[announce,id])
   }
 
+
   module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce , addUser , getAllusers}
