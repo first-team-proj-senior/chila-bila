@@ -21,14 +21,25 @@ USE `chilabila` ;
 -- Table `chilabila`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `chilabila`.`user` (
-  `userid` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`userid`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-  UNIQUE INDEX `userid_UNIQUE` (`userid` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+  `password` VARCHAR(1000) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `chilabila`.`annancement`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `chilabila`.`annancement` (
+  `id` INT NOT NULL,
+  `title` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `price` INT NOT NULL,
+  `category` VARCHAR(100) NOT NULL,
+  `image` VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -36,25 +47,14 @@ ENGINE = InnoDB;
 -- Table `chilabila`.`announces`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `chilabila`.`announces` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(255) NOT NULL,
+  `id` INT NOT NULL,
+  `title` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
   `price` INT NOT NULL,
-  `category` VARCHAR(255) NOT NULL,
   `image` VARCHAR(1000) NOT NULL,
-  `location` VARCHAR(255) NOT NULL,
-  `user_userid` INT NOT NULL,
-  PRIMARY KEY (`id`, `user_userid`),
-  INDEX `fk_announces_user_idx` (`user_userid` ASC) VISIBLE,
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  CONSTRAINT `fk_announces_user`
-    FOREIGN KEY (`user_userid`)
-    REFERENCES `chilabila`.`user` (`userid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  `location` VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
