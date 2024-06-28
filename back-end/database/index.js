@@ -1,16 +1,17 @@
 
-const mysql = require("mysql2/promise")
+const mysql = require("mysql2")
 
-const connection = await mysql.createConnection({
+const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "root",
     database: "chilabila",
-})
-
-connection.connect().then(() => {
+}).promise()
+connection.connect()
+.then(() => {
  console.log("Database connected");
-  }).catch((err) => {
+  })
+  .catch((err) => {
     console.log("Error to connect to database", err);
   })
 
@@ -19,21 +20,29 @@ connection.connect().then(() => {
     const sql = `select * from announces`
     return connection.query(sql)
   }
-
+  const getAllusers = ()=>{
+    const sql = `select * from user`
+    return connection.query(sql)
+  }
   const saveAnnounceinDB = (announce)=>{
-    const sql = "INSERT INTO `comments` SET ?";
+    const sql = "INSERT INTO `announces` SET ?";
     return connection.query(sql,announce)
 
   }
+ const addUser = (user)=>{
+  const sql = "INSERT INTO `user` SET ?";
+    return connection.query(sql,user)
+ }
 
   const removeAnnounc = (id)=>{
- const sql = "DELET FROM announces WHERE id=?"
+ const sql = "DELETE FROM announces WHERE id=?"
  return connection.query(sql,id)
   }
 
   const updateAnnounce = (announce,id)=>{
- const sql = " UPDATE house SET ? WHERE id=?"
- return connection.query(announce,id)
+ const sql = " UPDATE announces SET ? WHERE id=?"
+ return connection.query(sql,[announce,id])
   }
 
-  module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce }
+
+  module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce , addUser , getAllusers}
