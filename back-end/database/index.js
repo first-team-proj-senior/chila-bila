@@ -44,6 +44,5 @@ connection.connect()
  return connection.query(sql,[announce,id])
   }
 
-  // test 
 
   module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce , addUser , getAllusers}
