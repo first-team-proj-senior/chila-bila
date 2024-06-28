@@ -11,7 +11,6 @@ const AddAnnouncement = (props) => {
   const [error, setError] = useState('');
   const [allowed, setAllowed] = useState(false);
   const [phoneNumber,setPhoneNumber]=useState("")
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !description || !category || !price) { 
@@ -110,6 +109,7 @@ const AddAnnouncement = (props) => {
             <label htmlFor="image" className="block text-gray-700">Image:</label>
             <input
               type="file"
+
               onChange={(e)=>setImage(e.target.files[0])}
               className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
             />
@@ -125,6 +125,20 @@ const AddAnnouncement = (props) => {
             />
           </div>
           <span  type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
+
+          <div className="mb-4">
+            <label htmlFor="Phone Number" className="block text-gray-700">Phone Number:</label>
+            <input
+              type="text"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
+              placeholder="Enter your Phone Number"
+            />
+          </div>
+          
+          <button type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
+
             Submit
           </span>
 
