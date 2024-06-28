@@ -26,7 +26,6 @@ function App() {
           <Route path='/category/electronics' element={<Electronics/>}/>
           <Route path='/category/hobbies' element={<Hobbies/>}/>
           <Route path='/annoucement/detail' element={<DetailAnnoucement/>}/>
-          
         </Routes>
        <Footer/> 
       </Router>
