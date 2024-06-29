@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router,  Route, Routes } from "react-router-dom";
+import { useState } from 'react';
 import NavBar from './components/NavBar'
 import RealEstate from './components/pages/RealEstate'
 import Cars from './components/pages/Cars'
@@ -12,14 +13,17 @@ import Home from './components/pages/Home'
 import Footer from './components/Footer.jsx' 
 import DetailAnnoucement from './components/pages/detailAnnoucement.jsx';
 function App() {
+  const [userAccount,SetUserAccount]=useState(false)
+  const [user,SetUser]=useState([])
+  console.log(user);
   return (
     <div className="App">
       <Router>
-        <NavBar/>
+        <NavBar userAccount={userAccount} SetUserAccount={SetUserAccount} user={user}/>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/add-announcement" element={<AddAnnouncement/>} />
-          <Route path="/user/auth/sign-in" element={<SignIn/>}/>
+          <Route path="/user/auth/sign-in" element={<SignIn  SetUserAccount={SetUserAccount} user={SetUser}/>}/>
           <Route path="/user/auth/sign-up" element={<SignUp/>}/>
           <Route path='/category/real-estate' element={<RealEstate/>}/>
           <Route path='/category/cars' element={<Cars/>}/>
