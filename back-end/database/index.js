@@ -27,8 +27,8 @@ connection.connect()
   }
 
   const getOneUser = (username) => {
-    const sql = `SELECT * FROM user WHERE username = ? `;
-    return connection.query(sql, [username]);
+    const sql = `SELECT * FROM users WHERE username = ? `;
+    return connection.query(sql,username);
   };
   
 
