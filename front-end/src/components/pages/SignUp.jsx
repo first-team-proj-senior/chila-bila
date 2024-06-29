@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import succIcon from '../../image/succ.gif'
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -9,25 +9,12 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success,setSuccess]=useState(false)
- 
-
+  const [checkUserName,setCheckUserName]=useState(null)
   const user ={
     username: name,
     email: email,
     password: password
   }
-
-  const addUser = (userAdded)=>{
-    axios.post('http://127.0.0.1:3000/api/users', userAdded)
-    .then((results)=>console.log(results.data))
-    .catch((err)=>console.log(err))
-  }
-  const handelSucc =()=>{
-    if(name.length&&email.length&&password.length&&confirmPassword.length&&password===confirmPassword){
-      setSuccess(true)
-    }
-  }
-  
   const handleSubmit = () => {
     if(!name&&!email&&!password){
       setError('Please fill all the fields')
@@ -41,18 +28,33 @@ const SignUp = () => {
       setError('Please enter your email')
       return;
     }
-   else if(!password){
+    else if(!password){
       setError('Please enter your password')
       return;
     }
-   else if (password !== confirmPassword) {
+    else if (password !== confirmPassword) {
       setError('Passwords do not match');
+      return;
+    }
+    else if(!checkUserName){
+      setError('Username exist')
       return;
     }
     setError('');
     
   };
-
+  
+  const addUser = (userAdded)=>{
+      axios.post('http://127.0.0.1:3000/api/auth/signup', userAdded)
+      .then((results)=>console.log(results.data))
+      .catch((err)=>console.log(err.response.data.error.errno))
+  }
+  const handelSucc =()=>{
+    if(name.length&&email.length&&password.length&&confirmPassword.length&&password===confirmPassword&&error){
+      setSuccess(true)
+    }
+  }
+  
   return (
     <>
     {!success && (<div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -104,10 +106,12 @@ const SignUp = () => {
           </div>
           <button
             className="bg-[#ff385c] text-white p-2 rounded-xl hover:bg-[#fe4869] "
-            onClick={()=> {
-             handleSubmit()
-             handelSucc()
-             addUser(user)
+            onClick={()=> { 
+              handleSubmit()
+              if(error){
+                handelSucc()
+                addUser(user) 
+              }
             }}
           >
             Sign Up
@@ -116,7 +120,7 @@ const SignUp = () => {
       </div>
       {}
     </div>) }
-     {success && <div className="succ-pop-up  bg-gray-100 flex items-center justify-center ">
+    {success && <div className="succ-pop-up  bg-gray-100 flex items-center justify-center ">
       <div className="succ-pop-up-inner flex flex-col items-center justify-center w-max shadow-md	p-5 m-10 rounded-xl bg-[#fff] ">
        <img src={succIcon} width={120} />
        <h2 className="text-center text-2xl font-bold text-[#16c72e] p-1">Account Created Successfully</h2>
