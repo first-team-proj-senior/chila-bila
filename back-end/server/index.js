@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require('cors')
-const { getOneUser,getAllAnnounces ,getAllusers, saveAnnounceinDB , removeAnnounc , updateAnnounce, addUser,}= require('../database/index.js')
+const { getOneUser,getAllAnnounces ,getAllusers, saveAnnounceinDB , removeAnnounc , updateAnnounce, addUser}= require('../database/index.js')
 const bcrypt=require("bcrypt")
-const { createTokens, validateToken } = require("./JWT.js");
+//const { createTokens, validateToken } = require("./JWT.js");
 const app = express();
 const PORT = 3000;
 app.use(cors())
@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:true}));
 // requests for login and sign up :
 
 //1) Post request for signing up:
-app.post("/api/SignUp", (req,res) => {
+app.post("/api/auth/signup", (req,res) => {
 
   const {username,email,password}=req.body;
   bcrypt.hash(password, 10).then((hash)=>{
@@ -34,24 +34,11 @@ app.post("/api/SignUp", (req,res) => {
 
   //2) Post request for signing in :
   // Post request for signing in:
- app.post("/api/SignIn" , async (req,res)=>{
-  const {username,email,password}=req.body;
-  const user = await getOneUser(username);
-  if(!user) res.status(400).json({error : "user dosent exist"});
-  const dbUser = user[0];
-  const dbPassword = dbUser.password;
-  bcrypt.compare(password, dbPassword).then((match)=>{
-    if(!match){
-      res.status(400).json({error: "wrong information"})
-    }else {
-      res.json("suucess")
-    }
-  })
- })
+
   
 
 ////////////////////////////////////////////////////////////////////////////
-  app.get("/api/users", async (req, res) => {
+  app.get("/api/auth/signup", async (req, res) => {
     try {
      const allusers = await getAllusers()
      res.json(allusers[0])
