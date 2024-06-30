@@ -13,7 +13,8 @@ import Home from './components/pages/Home'
 import Footer from './components/Footer.jsx' 
 import DetailAnnoucement from './components/pages/detailAnnoucement.jsx';
 import { jwtDecode } from "jwt-decode";
-
+import UserAnnouncementDetail from './components/pages/UserAnnouncementDetailDetail.jsx';
+import MyAnnouncement from './components/pages/MyAnnouncement.jsx';
 
 function App() {
   const [userAccount,SetUserAccount]=useState(false)
@@ -42,6 +43,8 @@ function App() {
           <Route path='/category/electronics' element={<Electronics/>}/>
           <Route path='/category/hobbies' element={<Hobbies/>}/>
           <Route path='/annoucement/detail' element={<DetailAnnoucement/>}/>
+          <Route path="/my-announcement" element={<MyAnnouncement />} />
+          <Route path="/user-announcement-detail" element={<UserAnnouncementDetail />} />
         </Routes>
        <Footer/> 
       </Router>
