@@ -1,18 +1,20 @@
-import React, { Profiler, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../image/logo.png';
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
-import profilImag from '../image/profile.png' 
+import ProfileImg from '../image/profile.png';
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [userMenu,setUserMenu]=useState(false)
+  const [userMenu, setUserMenu] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('isAuthenticated');
     props.SetUserAccount(false);
   };
+
   return (
     <div className='top-nav-bar'>
       <nav>
@@ -56,19 +58,18 @@ const NavBar = (props) => {
               <span className='bg-[#ff385c] p-2.5 rounded-xl cursor-pointer text-[#fff] hover:bg-[#fe4869]'>Sign In/Sign Up</span>
             </NavLink>
           </div>}
-          {props.userAccount && <div onClick={()=>setUserMenu(!userMenu)} className='user-profile flex items-center ml-14 gap-2 cursor-pointer'>
-            <img src={profilImag} className='h-12'></img>
-          
-                <h5> {props.user}  ▼ </h5>
-              
-            {userMenu && <div className="profil-menu absolute mt-2.5">
+          {props.userAccount && <div onClick={() => setUserMenu(!userMenu)} className='user-profile flex items-center ml-14 gap-2 cursor-pointer'>
+            <img src={ProfileImg} className='h-12' alt="Profile" />
+            <h5>{props.user} ▼</h5>
+            {userMenu && <div className="profile-menu absolute mt-2.5">
               <ul className='flex flex-col gap-3 mt-44 bg-white p-4 shadow-md rounded-lg'>
-                <li className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>📁 My Annoucement</li>
-                <li onClick={()=>handleLogout()} className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>↩️ Logout</li>
+                <li className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>
+                  <NavLink to="/my-announcement" className="p-4">My Announcements</NavLink>
+                </li>
+                <li onClick={handleLogout} className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>↩️ Logout</li>
               </ul>
-            </div> }
-            
-          </div> }
+            </div>}
+          </div>}
         </div>
       </nav>
     </div>
