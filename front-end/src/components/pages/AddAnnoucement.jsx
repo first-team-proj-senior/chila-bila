@@ -41,7 +41,6 @@ const AddAnnouncement = (props) => {
  
   const addAnn = async () => {
     const url = await uploadImage(); // Wait for the image to be uploaded and get the URL
-    console.log(url);
     if (url) {
       const announcement = {
         title: title,
@@ -165,9 +164,8 @@ const AddAnnouncement = (props) => {
           </div>
           <NavLink to="/" >
           <span onClick={()=>{
-          setTimeout(()=>{
             addAnn() 
-          },3500)
+            props.refetech(true)
           }} type="submit" className="flex items-center justify-center cursor-pointer w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
             Submit
           </span>

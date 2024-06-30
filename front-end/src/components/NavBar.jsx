@@ -64,7 +64,7 @@ const NavBar = (props) => {
             {userMenu && <div className="profile-menu absolute mt-2.5">
               <ul className='flex flex-col gap-3 mt-44 bg-white p-4 shadow-md rounded-lg'>
                 <li className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>
-                  <NavLink to="/my-announcement" className="p-4">My Announcements</NavLink>
+                  <NavLink to="/my-announcement">📁 My Announcements</NavLink>
                 </li>
                 <li onClick={handleLogout} className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>↩️ Logout</li>
               </ul>

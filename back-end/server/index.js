@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require("express");
 const cors = require('cors')
-const { getOneUser,getAllAnnounces ,getAllusers, saveAnnounceinDB , removeAnnounc , updateAnnounce, addUser}= require('../database/index.js')
+const { getOneUser,getAllAnnounces,getUserAnnoucement ,getAllusers, saveAnnounceinDB , removeAnnounc , updateAnnounce, addUser}= require('../database/index.js')
 const bcrypt=require("bcrypt")
 const jwt = require('jsonwebtoken')
 const app = express();
@@ -103,6 +103,15 @@ app.post("/api/auth/signup", (req,res) => {
   app.get("/api/announce", async (req, res) => {
     try {
       const allAnnounces = await getAllAnnounces()
+      res.json(allAnnounces[0])
+    } catch (error) {
+      res.status(500).send(error)
+      console.log(error)
+    }
+  });
+  app.get("/api/announce/:userId", async (req, res) => {
+    try {
+      const allAnnounces = await getUserAnnoucement(req.params.userId)
       res.json(allAnnounces[0])
     } catch (error) {
       res.status(500).send(error)
