@@ -23,29 +23,42 @@ const AddAnnouncement = (props) => {
     setError('');
   };
    
-  const uploadImage= async ()=>{
-    const form = new FormData()
-    form.append('file',image)
-    form.append('upload_preset','chila-bila')
-   await axios.post('https://api.cloudinary.com/v1_1/dh3m2vb3x/upload',form)
-   .then(res=>setImageUrl(res.data.url))
-   .catch((err)=>console.log(err))
-  }
-  const Annoucement ={
-    title:title,
-    description:description,
-    category:category,
-    location:location,
-    price:price,
-    imageUrl:imageUrl,
-    phone:phoneNumber,
-    users_id:props.userId
-  }
-  const AddtoDb =()=>{
-    axios.post('http://localhost:3000/api/announce',Annoucement)
-    .then((res)=>console.log('added succ'))
-    .catch((err)=>console.log(err))
-  }
+  const uploadImage = async () => {
+    const form = new FormData();
+    form.append('file', image);
+    form.append('upload_preset', 'chila-bila');
+
+    try {
+      const res = await axios.post('https://api.cloudinary.com/v1_1/dh3m2vb3x/upload', form);
+      setImageUrl(res.data.url);
+      return res.data.url; // Return the URL for further chaining
+    } catch (err) {
+      console.log(err);
+      return null; // Return null if there was an error
+    }
+  };
+ 
+ 
+  const addAnn = async () => {
+    const url = await uploadImage(); // Wait for the image to be uploaded and get the URL
+    console.log(url);
+    if (url) {
+      const announcement = {
+        title: title,
+        description: description,
+        category: category,
+        location: location,
+        price: price,
+        imageUrl: url, // Use the returned URL
+        phone: phoneNumber,
+        users_id: props.userId,
+      };
+
+      axios.post('http://localhost:3000/api/announce', announcement)
+        .then((res) => console.log('added successfully'))
+        .catch((err) => console.log(err));
+    }
+  };
   return (
   
     <div className="flex justify-center items-center bg-gray-100 p-6" >
@@ -151,7 +164,11 @@ const AddAnnouncement = (props) => {
             />
           </div>
           <NavLink to="/" >
-          <span onClick={()=>{uploadImage(),AddtoDb()}} type="submit" className="flex items-center justify-center cursor-pointer w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
+          <span onClick={()=>{
+          setTimeout(()=>{
+            addAnn() 
+          },3500)
+          }} type="submit" className="flex items-center justify-center cursor-pointer w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
             Submit
           </span>
           </NavLink>
