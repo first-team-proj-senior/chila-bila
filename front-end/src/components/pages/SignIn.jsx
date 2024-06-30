@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios'
@@ -9,11 +9,27 @@ const SignIn = (props) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const Login =()=>{
- axios.get(`http://127.0.0.1:3000/api/auth/signin/${userName}`)
- .then(res => props.user(res.data))
- .catch((err)=>console.log(err))
-  }
+  const Login = () => {
+    const user = {
+      username: userName,
+      password: password
+    };
+  
+    axios.post('http://localhost:3000/api/auth/signin', user)
+      .then(res =>{ if (res.data.token) {
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('isAuthenticated', true);
+      }})
+      .catch(err => console.log(err));
+  };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const isAuthenticated = localStorage.getItem('isAuthenticated');
+    if (token && isAuthenticated) {
+    props.SetUserAccount(true)
+     props.user(userName)
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,7 +68,7 @@ const SignIn = (props) => {
             />
           </div>
           <NavLink to="/">
-          <button onClick={()=>{Login(),props.SetUserAccount(true)}} type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
+          <button onClick={()=>{Login(),props.user(userName),props.SetUserAccount(true)}} type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
             Sign In
           </button>
           </NavLink>
