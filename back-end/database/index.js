@@ -18,7 +18,7 @@ connection.connect()
 
 
   const getAllAnnounces = ()=>{
-    const sql = `SELECT * FROM announces`
+    const sql = `SELECT * FROM annouces`
     return connection.query(sql)
   }
   const getAllusers = ()=>{
@@ -33,7 +33,7 @@ connection.connect()
   
 
   const saveAnnounceinDB = (announce)=>{
-    const sql = "INSERT INTO `announces` SET ?";
+    const sql = "INSERT INTO `annouces` SET ?";
     return connection.query(sql,announce)
 
   }

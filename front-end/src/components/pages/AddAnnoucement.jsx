@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
 import PopUp from '../PopUps/SignUpPop.jsx'
+import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 const AddAnnouncement = (props) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -11,6 +13,7 @@ const AddAnnouncement = (props) => {
   const [error, setError] = useState('');
   const [allowed, setAllowed] = useState(false);
   const [phoneNumber,setPhoneNumber]=useState("")
+  const [imageUrl,setImageUrl]=useState('')
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !description || !category || !price) { 
@@ -19,7 +22,30 @@ const AddAnnouncement = (props) => {
     }
     setError('');
   };
-
+   
+  const uploadImage= async ()=>{
+    const form = new FormData()
+    form.append('file',image)
+    form.append('upload_preset','chila-bila')
+   await axios.post('https://api.cloudinary.com/v1_1/dh3m2vb3x/upload',form)
+   .then(res=>setImageUrl(res.data.url))
+   .catch((err)=>console.log(err))
+  }
+  const Annoucement ={
+    title:title,
+    description:description,
+    category:category,
+    location:location,
+    price:price,
+    imageUrl:imageUrl,
+    phone:phoneNumber,
+    users_id:props.userId
+  }
+  const AddtoDb =()=>{
+    axios.post('http://localhost:3000/api/announce',Annoucement)
+    .then((res)=>console.log('added succ'))
+    .catch((err)=>console.log(err))
+  }
   return (
   
     <div className="flex justify-center items-center bg-gray-100 p-6" >
@@ -67,7 +93,7 @@ const AddAnnouncement = (props) => {
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
+              className="w-full  p-2 border border-gray-300 rounded-xl bg-gray-100"
             >
               <option value="">Select Location</option>
               <option value="Tunis">Tunis</option>
@@ -124,9 +150,11 @@ const AddAnnouncement = (props) => {
               placeholder="Enter your Phone Number"
             />
           </div>
-          <span type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
+          <NavLink to="/" >
+          <span onClick={()=>{uploadImage(),AddtoDb()}} type="submit" className="flex items-center justify-center cursor-pointer w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
             Submit
           </span>
+          </NavLink>
         </form>
       </div>
         </div>
