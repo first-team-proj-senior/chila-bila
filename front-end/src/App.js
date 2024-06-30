@@ -18,12 +18,14 @@ import { jwtDecode } from "jwt-decode";
 function App() {
   const [userAccount,SetUserAccount]=useState(false)
   const [user,SetUser]=useState('')
+  const [userId,setUserId]=useState('')
   useEffect(() => {
     const token = localStorage.getItem('token');
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     if (token && isAuthenticated) {
       const decodedToken = jwtDecode(token);
     SetUser(decodedToken.username)
+    setUserId(decodedToken.id)
     SetUserAccount(true)
     }
   }, []);
@@ -34,7 +36,7 @@ function App() {
         <NavBar userAccount={userAccount} SetUserAccount={SetUserAccount} user={user}/>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/add-announcement" element={<AddAnnouncement/>} />
+          <Route path="/add-announcement" element={<AddAnnouncement userId={userId}/>} />
           <Route path="/user/auth/sign-in" element={<SignIn  SetUserAccount={SetUserAccount} user={SetUser}/>}/>
           <Route path="/user/auth/sign-up" element={<SignUp/>}/>
           <Route path='/category/real-estate' element={<RealEstate/>}/>
