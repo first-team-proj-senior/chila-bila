@@ -17,11 +17,13 @@ const Home = () => {
        <div className="p-4 mt-4">
         <h2 className='ml-14 mt-4 font-medium text-2xl flex items-center justify-center'>Currently on Chila Bila 🔥🔥</h2>
        <div className="all-annouc mt-10 ml-8 flex flex-wrap">
-        <div className="annoucment-card max-w-44 m-4 bg-white shadow-md rounded-xl flex flex-col">
+        <NavLink to='/annoucement/detail'>
+        <div className="annoucment-card cursor-pointer max-w-44 m-4 bg-white shadow-md rounded-xl flex flex-col">
          <img className='max-w-48 rounded-xl' src={HomeImg} ></img>
          <h3 className='max-w-44 flex flex-warp p-3 items-center justify-center font-medium'>Maison individuelle de 150m2 sous-sol comp </h3>
          <h3 className='max-w-44 flex flex-warp p-3 items-center justify-center font-medium' >150.000 TND</h3>
          </div>
+        </NavLink>
        </div>
        </div>
        <div className="flex flex-col">

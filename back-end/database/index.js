@@ -7,6 +7,7 @@ const connection = mysql.createConnection({
     password: "root",
     database: "chilabila",
 }).promise()
+
 connection.connect()
 .then(() => {
  console.log("Database connected");
@@ -17,17 +18,17 @@ connection.connect()
 
 
   const getAllAnnounces = ()=>{
-    const sql = `select * from announces`
+    const sql = `SELECT * FROM announces`
     return connection.query(sql)
   }
   const getAllusers = ()=>{
-    const sql = `select * from user`
+    const sql = `select * from users`
     return connection.query(sql)
   }
 
   const getOneUser = (username) => {
-    const sql = `SELECT * FROM user WHERE username = ? `;
-    return connection.query(sql, [username]);
+    const sql = `SELECT * FROM users WHERE username = ? `;
+    return connection.query(sql,username);
   };
   
 
@@ -37,7 +38,7 @@ connection.connect()
 
   }
  const addUser = (user)=>{
-  const sql = "INSERT INTO `user` SET ?";
+  const sql = "INSERT INTO `users` SET ?";
     return connection.query(sql,user)
  }
 

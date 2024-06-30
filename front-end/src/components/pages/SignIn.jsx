@@ -1,15 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import axios from 'axios'
 
 
-const SignIn = () => {
-  const [email, setEmail] = useState('');
+const SignIn = (props) => {
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const Login = () => {
+    const user = {
+      username: userName,
+      password: password
+    };
+  
+    axios.post('http://localhost:3000/api/auth/signin', user)
+      .then(res =>{ if (res.data.token) {
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('isAuthenticated', true);
+      }})
+      .catch(err => console.log(err));
+  };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const isAuthenticated = localStorage.getItem('isAuthenticated');
+    if (token && isAuthenticated) {
+    props.SetUserAccount(true)
+     props.user(userName)
+    }
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !password) {
+    if (!userName || !password) {
       setError('Please fill in all fields');
       return;
     }
@@ -24,13 +48,13 @@ const SignIn = () => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">Email:</label>
+            <label htmlFor="username" className="block text-gray-700">Username:</label>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded-xl bg-gray-100"
-              placeholder="Enter your email"
+              placeholder="Username"
             />
           </div>
           <div className="mb-6">
@@ -43,9 +67,11 @@ const SignIn = () => {
               placeholder="Enter your password"
             />
           </div>
-          <button type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
+          <NavLink to="/">
+          <button onClick={()=>{Login(),props.user(userName),props.SetUserAccount(true)}} type="submit" className="w-full bg-[#ff385c] text-white p-2 rounded hover:bg-[#fe4869]">
             Sign In
           </button>
+          </NavLink>
         </form>
         <p className="mt-4 text-center">
           Don't have an account? <Link to="/user/auth/sign-up" className="text-[#ff385c]">Sign Up</Link>
