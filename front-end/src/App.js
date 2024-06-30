@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router,  Route, Routes } from "react-router-dom";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import NavBar from './components/NavBar'
 import RealEstate from './components/pages/RealEstate'
 import Cars from './components/pages/Cars'
@@ -12,10 +12,22 @@ import AddAnnouncement from './components/pages/AddAnnoucement.jsx';
 import Home from './components/pages/Home' 
 import Footer from './components/Footer.jsx' 
 import DetailAnnoucement from './components/pages/detailAnnoucement.jsx';
+import { jwtDecode } from "jwt-decode";
+
+
 function App() {
   const [userAccount,SetUserAccount]=useState(false)
-  const [user,SetUser]=useState([])
-  console.log(user);
+  const [user,SetUser]=useState('')
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const isAuthenticated = localStorage.getItem('isAuthenticated');
+    if (token && isAuthenticated) {
+      const decodedToken = jwtDecode(token);
+    SetUser(decodedToken.username)
+    SetUserAccount(true)
+    }
+  }, []);
+  
   return (
     <div className="App">
       <Router>

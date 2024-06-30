@@ -8,6 +8,11 @@ import profilImag from '../image/profile.png'
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userMenu,setUserMenu]=useState(false)
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('isAuthenticated');
+    props.SetUserAccount(false);
+  };
   return (
     <div className='top-nav-bar'>
       <nav>
@@ -53,16 +58,13 @@ const NavBar = (props) => {
           </div>}
           {props.userAccount && <div onClick={()=>setUserMenu(!userMenu)} className='user-profile flex items-center ml-14 gap-2 cursor-pointer'>
             <img src={profilImag} className='h-12'></img>
-            {props.user.map((elem)=>{
-              return (
-                
-                <h5> {elem.username}  ▼ </h5>
-              )
-            })}
+          
+                <h5> {props.user}  ▼ </h5>
+              
             {userMenu && <div className="profil-menu absolute mt-2.5">
               <ul className='flex flex-col gap-3 mt-44 bg-white p-4 shadow-md rounded-lg'>
                 <li className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>📁 My Annoucement</li>
-                <li onClick={()=>props.SetUserAccount(false)} className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>↩️ Logout</li>
+                <li onClick={()=>handleLogout()} className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>↩️ Logout</li>
               </ul>
             </div> }
             

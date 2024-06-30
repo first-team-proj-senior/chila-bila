@@ -10,8 +10,6 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-console.log('PRIVATE_KEY:', process.env.PRIVATE_KEY)
-
 // requests for login and sign up :
 
 //1) Post request for signing up:
@@ -43,68 +41,77 @@ app.post("/api/auth/signup", (req,res) => {
   })
 
   // handling login
-  app.post("/api/auth/signin/:username", async (req, res) => {
+  app.post("/api/auth/signin", async (req, res) => {
     try {
-      const user = await getOneUser(req.params.username);
-      console.log(user[0][0].password)
-      if (!user[0][0]) {
+      const { username, password } = req.body;
+  
+      // Ensure username and password are provided
+      if (!username || !password) {
+        return res.status(400).json({ error: "username and password are required" });
+      }
+  
+      const user = await getOneUser(username);
+      
+      // Check if user exists
+      if (!user || !user[0] || !user[0][0]) {
         return res.status(400).json({ error: "user not found" });
       }
-      if (!req.body.password || !user[0][0].password) {
+  
+      const userInfo = user[0][0];
+  
+      if (!userInfo.password) {
         return res.status(400).json({ error: "data and hash arguments required" });
       }
-      
-      const isMatch = await bcrypt.compare(req.body.password, user[0][0].password);
-      
+  
+      const isMatch = await bcrypt.compare(password, userInfo.password);
+  
       if (!isMatch) {
         return res.status(400).json({ error: "password is incorrect" });
       }
-      
+  
       const token = jwt.sign(
         {
-          id: user[0][0].id,
-          username: user[0][0].username,
-          email: user[0][0].email,
-          role: user[0][0].role
-        },process.env.PRIVATE_KEY,
+          id: userInfo.id,
+          username: userInfo.username,
+          email: userInfo.email,
+          role: userInfo.role
+        },
+        process.env.PRIVATE_KEY,
         { expiresIn: '1h' }
       );
-      
+  
+      // Respond with token
       res.status(200).json({
         message: "success",
         token: "Bearer " + token
       });
-      
     } catch (error) {
       res.status(500).send(error);
     }
   });
   
-  module.exports = app;
-  
-////////////////////////////////////////////////////////////////////////////
   app.get("/api/auth/signup", async (req, res) => {
     try {
-     const allusers = await getAllusers()
-     res.json(allusers[0])
+      const allusers = await getAllusers()
+      res.json(allusers[0])
     } catch (error) {
-     res.status(500).send(error)
-     console.log(error)
+      res.status(500).send(error)
+      console.log(error)
     }
-   });
-
- app.get("/api/announce", async (req, res) => {
-  try {
-   const allAnnounces = await getAllAnnounces()
-   res.json(allAnnounces[0])
-  } catch (error) {
-   res.status(500).send(error)
-   console.log(error)
-  }
- });
-
-app.post("/api/announce", async (req,res) => {
-try {
+  });
+  
+  app.get("/api/announce", async (req, res) => {
+    try {
+      const allAnnounces = await getAllAnnounces()
+      res.json(allAnnounces[0])
+    } catch (error) {
+      res.status(500).send(error)
+      console.log(error)
+    }
+  });
+  
+  app.post("/api/announce", async (req,res) => {
+    try {
   const addedAnnounce = await saveAnnounceinDB(req.body)
   res.status(201).json(addedAnnounce)
 } catch (error) {
@@ -123,21 +130,23 @@ app.put('/api/announce/:id', async (req,res)=>{
   }
   })
 
+  
+  
+  app.delete('/api/announce/:id', async (req,res)=>{
+    try {
+      const deletedAnnounce = await removeAnnounc(req.params.id)
+      res.json(deletedAnnounce)
+      console.log(deletedAnnounce)
+    } catch (error) {
+      res.status(500).send(error)
+      console.log(error)
+    }
+  })
 
+  
 
-app.delete('/api/announce/:id', async (req,res)=>{
-  try {
-    const deletedAnnounce = await removeAnnounc(req.params.id)
-    res.json(deletedAnnounce)
-    console.log(deletedAnnounce)
-  } catch (error) {
-    res.status(500).send(error)
-    console.log(error)
-  }
-})
-
-
-
-app.listen(PORT, function () {
-  console.log("listening on port 3000!");
+  app.listen(PORT, function () {
+    console.log("listening on port 3000!");
 });
+
+module.exports = app;
