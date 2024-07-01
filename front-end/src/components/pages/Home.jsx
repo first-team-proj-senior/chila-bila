@@ -8,7 +8,7 @@ import { FaRegGrinHearts } from "react-icons/fa";
 import HomeCategories from '../home-compon/HomeCategories';
 import CurrentAnnouc from '../home-compon/CurrentAnnouc';
 import { NavLink } from 'react-router-dom';
-const Home = () => {
+const Home = (props) => {
   return (
     <div className='p-4'>
       <div className="slide-container">
@@ -17,12 +17,16 @@ const Home = () => {
        <div className="p-4 mt-4">
         <h2 className='ml-14 mt-4 font-medium text-2xl flex items-center justify-center'>Currently on Chila Bila 🔥🔥</h2>
        <div className="all-annouc mt-10 ml-8 flex flex-wrap">
-        <NavLink to='/annoucement/detail'>
-        <div className="annoucment-card cursor-pointer max-w-44 m-4 bg-white shadow-md rounded-xl flex flex-col">
-         <img className='max-w-48 rounded-xl' src={HomeImg} ></img>
-         <h3 className='max-w-44 flex flex-warp p-3 items-center justify-center font-medium'>Maison individuelle de 150m2 sous-sol comp </h3>
-         <h3 className='max-w-44 flex flex-warp p-3 items-center justify-center font-medium' >150.000 TND</h3>
+        <NavLink to='/annoucement/detail' className='flex flex-wrap'>
+        {props.annoucement.map((elem)=>{
+          return (
+        <div onClick={()=>props.oneAnnouc(elem)} className="annoucment-card cursor-pointer max-w-44 m-4 bg-white shadow-md rounded-xl flex flex-col">
+         <img className='max-w-48 rounded-xl' src={elem.imageUrl} ></img>
+         <h3 className='max-w-44 flex flex-warp p-3 items-center justify-center font-medium'>{elem.title}</h3>
+         <h3 className='max-w-44 flex flex-warp p-3 items-center justify-center font-medium' >{elem.price} TND</h3>
          </div>
+          )
+        })}
         </NavLink>
        </div>
        </div>
