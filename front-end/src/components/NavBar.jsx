@@ -31,8 +31,10 @@ const NavBar = (props) => {
             </NavLink>
           </div>
           <div className="flex items-center ml-20">
-            <input className='p-2 flex outline-none bg-slate-100 rounded-xl placeholder:text-sm' type="search" placeholder='Search in Chila Bila' />
-            <IoSearchOutline id='search-icon' size={32} className='absolute flex ml-44 rounded-xl cursor-pointer bg-[#ff385c] p-1 text-[#fff]' />
+            <input onChange={((e)=>{props.searchVal(e.target.value)})} className='p-2 flex outline-none bg-slate-100 rounded-xl placeholder:text-sm' type="search" placeholder='Search in Chila Bila' />
+           <NavLink to='/searched-annouc' className='search-ic absolute flex ml-44 rounded-xl cursor-pointer bg-[#ff385c] p-1 text-[#fff]'>
+            <IoSearchOutline id='search-icon' size={25}  />
+           </NavLink>
           </div>
           <div className="flex items-center ml-20 cursor-pointer">
             <span onClick={() => setIsOpen(!isOpen)}>Categories ▼</span>

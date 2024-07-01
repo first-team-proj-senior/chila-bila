@@ -6,7 +6,7 @@ body {
   font-family: Poppins;
   letter-spacing: -.6px;
 }
-#search-icon{
+.search-ic{
   margin-left: 11.3rem;
 }
 .top-nav-bar{
@@ -192,4 +192,9 @@ body {
 }
 .annouc-details{
   width: 50rem;
+}
+.alertPop{
+  top: 28%;
+  left: 35%;
+
 }

@@ -52,7 +52,7 @@ connection.connect()
   }
 
   const updateAnnounce = (announce,id)=>{
- const sql = " UPDATE announces SET ? WHERE id=?"
+ const sql = " UPDATE annouces  SET ? WHERE id=?"
  return connection.query(sql,[announce,id])
   }
   module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce , addUser , getAllusers , getOneUser,getUserAnnoucement}
