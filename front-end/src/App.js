@@ -15,36 +15,64 @@ import DetailAnnoucement from './components/pages/detailAnnoucement.jsx';
 import { jwtDecode } from "jwt-decode";
 import UserAnnouncementDetail from './components/pages/UserAnnouncementDetailDetail.jsx';
 import MyAnnouncement from './components/pages/MyAnnouncement.jsx';
-
+import UpdateAnnounce from './components/pages/updateAnnouc.jsx'
+import SearshedAnnouc from './components/pages/SearshedAnnouc.jsx';
+import axios from 'axios';
 function App() {
   const [userAccount,SetUserAccount]=useState(false)
   const [user,SetUser]=useState('')
+  const [userId,setUserId]=useState('')
+  const [annoucement,setAnnoucement]=useState([])
+  const [annoucementDetail,setAnnoucementDetail]=useState([])
+  const [userAnnoucement,setUserAnnouc]=useState([])
+  const [searchVal,setSearchVal]=useState('')
+  const [refetch,setRefetch]=useState(false)
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     if (token && isAuthenticated) {
       const decodedToken = jwtDecode(token);
     SetUser(decodedToken.username)
+    setUserId(decodedToken.id)
     SetUserAccount(true)
     }
   }, []);
+    useEffect(()=>{
+      axios('http://localhost:3000/api/announce')
+      .then((res)=>setAnnoucement(res.data))
+      .catch((err)=>console.log(err))
+    },[!refetch])
   
+    useEffect(()=>{
+     axios(`http://localhost:3000/api/announce/${userId}`)
+     .then((res)=>{setUserAnnouc(res.data)})
+     .catch((err)=>console.log(err))
+    },[!refetch])
+
+    const handleDelete = () => {
+      axios.delete(`http://localhost:3000/api/announce/${annoucementDetail.id}`)
+      .then((res)=>setRefetch(!refetch))
+      .catch((err)=>console.log(err))
+    };
   return (
     <div className="App">
       <Router>
-        <NavBar userAccount={userAccount} SetUserAccount={SetUserAccount} user={user}/>
+        <NavBar userAccount={userAccount} SetUserAccount={SetUserAccount} searchVal={setSearchVal} user={user}/>
         <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/add-announcement" element={<AddAnnouncement/>} />
+          <Route path="/" element={<Home annoucement={annoucement} oneAnnouc={setAnnoucementDetail}/>} />
+          <Route path="/add-announcement" element={<AddAnnouncement userId={userId} refetech={setRefetch}/>} />
           <Route path="/user/auth/sign-in" element={<SignIn  SetUserAccount={SetUserAccount} user={SetUser}/>}/>
           <Route path="/user/auth/sign-up" element={<SignUp/>}/>
-          <Route path='/category/real-estate' element={<RealEstate/>}/>
-          <Route path='/category/cars' element={<Cars/>}/>
-          <Route path='/category/electronics' element={<Electronics/>}/>
-          <Route path='/category/hobbies' element={<Hobbies/>}/>
-          <Route path='/annoucement/detail' element={<DetailAnnoucement/>}/>
-          <Route path="/my-announcement" element={<MyAnnouncement />} />
-          <Route path="/user-announcement-detail" element={<UserAnnouncementDetail />} />
+          <Route path='/category/real-estate' element={<RealEstate annoucement={annoucement} oneAnnouc={setAnnoucementDetail}/>}/>
+          <Route path='/category/cars' element={<Cars annoucement={annoucement} oneAnnouc={setAnnoucementDetail}/>}/>
+          <Route path='/category/electronics' element={<Electronics annoucement={annoucement} oneAnnouc={setAnnoucementDetail}/>}/>
+          <Route path='/category/hobbies' element={<Hobbies annoucement={annoucement} oneAnnouc={setAnnoucementDetail}/>}/>
+          <Route path='/annoucement/detail' element={<DetailAnnoucement annoucementDetail={annoucementDetail} user={user}/>}/>
+          <Route path="/my-announcement" element={<MyAnnouncement userAnnoucement={userAnnoucement} oneAnnouc={setAnnoucementDetail} />} />
+          <Route path="/user-announcement-detail" element={<UserAnnouncementDetail handleDelete={handleDelete} oneAnnouc={annoucementDetail} user={user} refetch={setRefetch} />} />
+          <Route path="/update-announce" element={<UpdateAnnounce userId={userId} refetech={setRefetch} oneAnnouc ={annoucementDetail}/>}></Route>
+          <Route path ='/searched-annouc' element={<SearshedAnnouc oneAnnouc={setAnnoucementDetail} annoucement={annoucement} searchVal={searchVal} />}></Route>
         </Routes>
        <Footer/> 
       </Router>

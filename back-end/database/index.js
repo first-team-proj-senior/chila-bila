@@ -18,12 +18,16 @@ connection.connect()
 
 
   const getAllAnnounces = ()=>{
-    const sql = `SELECT * FROM announces`
+    const sql = `SELECT * FROM annouces`
     return connection.query(sql)
   }
   const getAllusers = ()=>{
     const sql = `select * from users`
     return connection.query(sql)
+  }
+  const getUserAnnoucement =(userId)=>{
+    const sql = `SELECT * FROM annouces WHERE users_id = ?`
+    return connection.query(sql, userId)
   }
 
   const getOneUser = (username) => {
@@ -33,7 +37,7 @@ connection.connect()
   
 
   const saveAnnounceinDB = (announce)=>{
-    const sql = "INSERT INTO `announces` SET ?";
+    const sql = "INSERT INTO `annouces` SET ?";
     return connection.query(sql,announce)
 
   }
@@ -43,13 +47,13 @@ connection.connect()
  }
 
   const removeAnnounc = (id)=>{
- const sql = "DELETE FROM announces WHERE id=?"
+ const sql = "DELETE FROM annouces WHERE id=?"
  return connection.query(sql,id)
   }
 
   const updateAnnounce = (announce,id)=>{
- const sql = " UPDATE announces SET ? WHERE id=?"
+ const sql = " UPDATE annouces  SET ? WHERE id=?"
  return connection.query(sql,[announce,id])
   }
-  module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce , addUser , getAllusers , getOneUser}
+  module.exports = {getAllAnnounces , saveAnnounceinDB , removeAnnounc , updateAnnounce , addUser , getAllusers , getOneUser,getUserAnnoucement}
 
