@@ -7,12 +7,6 @@ import DeletePopUp from "../PopUps/deletePopUp";
 const UserAnnouncementDetail = (props) => {
   const [clickedDel,setClickedDel]=useState(false)
   
-  const handleUpdate = () => {
-    // here is the logic of updating the announce
-  };
-
- 
-
   return (
     <>
     {!clickedDel && <div className="p-4 flex gap-10 ml-10">
