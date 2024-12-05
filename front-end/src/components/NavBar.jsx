@@ -3,9 +3,17 @@ import { NavLink } from 'react-router-dom';
 import Logo from '../image/logo.png';
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
+import ProfileImg from '../image/profile.png';
 
-const NavBar = () => {
+const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('isAuthenticated');
+    props.SetUserAccount(false);
+  };
 
   return (
     <div className='top-nav-bar'>
@@ -23,8 +31,10 @@ const NavBar = () => {
             </NavLink>
           </div>
           <div className="flex items-center ml-20">
-            <input className='p-2 flex outline-none bg-slate-100 rounded-xl placeholder:text-sm' type="search" placeholder='Search in Chila Bila' />
-            <IoSearchOutline id='search-icon' size={32} className='absolute flex ml-44 rounded-xl cursor-pointer bg-[#ff385c] p-1 text-[#fff]' />
+            <input onChange={((e)=>{props.searchVal(e.target.value)})} className='p-2 flex outline-none bg-slate-100 rounded-xl placeholder:text-sm' type="search" placeholder='Search in Chila Bila' />
+           <NavLink to='/searched-annouc' className='search-ic absolute flex ml-44 rounded-xl cursor-pointer bg-[#ff385c] p-1 text-[#fff]'>
+            <IoSearchOutline id='search-icon' size={25}  />
+           </NavLink>
           </div>
           <div className="flex items-center ml-20 cursor-pointer">
             <span onClick={() => setIsOpen(!isOpen)}>Categories ▼</span>
@@ -45,11 +55,23 @@ const NavBar = () => {
               </li>
             </ul>
           </div>}
-          <div className="flex items-center ml-28">
+          {!props.userAccount && <div className="flex items-center ml-28">
             <NavLink to="/user/auth/sign-in">
               <span className='bg-[#ff385c] p-2.5 rounded-xl cursor-pointer text-[#fff] hover:bg-[#fe4869]'>Sign In/Sign Up</span>
             </NavLink>
-          </div>
+          </div>}
+          {props.userAccount && <div onClick={() => setUserMenu(!userMenu)} className='user-profile flex items-center ml-14 gap-2 cursor-pointer'>
+            <img src={ProfileImg} className='h-12' alt="Profile" />
+            <h5>{props.user} ▼</h5>
+            {userMenu && <div className="profile-menu absolute mt-2.5">
+              <ul className='flex flex-col gap-3 mt-44 bg-white p-4 shadow-md rounded-lg'>
+                <li className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>
+                  <NavLink to="/my-announcement">📁 My Announcements</NavLink>
+                </li>
+                <li onClick={handleLogout} className='hover:bg-[#ff385c] rounded-xl p-1 hover:text-[#fff]'>↩️ Logout</li>
+              </ul>
+            </div>}
+          </div>}
         </div>
       </nav>
     </div>
